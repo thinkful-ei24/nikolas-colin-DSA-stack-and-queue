@@ -52,6 +52,48 @@ function peek(stack) {
   return stack.top.value;
 }
 
+function isPalindrome(s) {
+  s = s.toLowerCase().replace(/[^a-zA-Z0-9]/g, "");
+  //create a new stack
+  //creat ANOTHER stack
+  //iterate through string, and push onto stack
+  //iterate through reverseString and push to stack2
+  //while top1 === top2
+  //  top1 = top1.next
+  //  top2 = top2.next
+  //if Top1 !== top2 return false
+  //return true
+  const stackOne = new StarTrek();
+  const stackTwo = new StarTrek();
+  for (let c in s) {
+    stackOne.push(s[c]);
+  }
+  const reversed = reverseString(s);
+  for (let c in reversed) {
+    stackTwo.push(reversed[c]);
+  }
+  while ( stackOne.top !== null && stackOne.top.value === stackTwo.top.value ) {
+    console.log(stackOne.top.value, stackTwo.top.value, 'HERE');
+    stackOne.top = stackOne.top.next;
+    stackTwo.top = stackTwo.top.next;
+  }
+  if (stackOne.top !== stackTwo.top) {
+    return false;
+  }
+  return true;
+}
+
+console.log(isPalindrome('starrats'), 'TRUE');
+console.log(isPalindrome('abcdefg'), 'FALSE');
+
+function reverseString(string) {
+  if (!string.length) {
+    return '';
+  }
+  return reverseString(string.slice(1)) + string[0];
+}
+
+console.log(reverseString('dog'));
 
 function main() {
   const stack = new StarTrek();
@@ -65,3 +107,4 @@ function main() {
 }
 
 main();
+
