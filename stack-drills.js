@@ -52,6 +52,7 @@ function peek(stack) {
   return stack.top.value;
 }
 
+///////////////////// ITS A PALINDROME /////////////////////
 function isPalindrome(s) {
   s = s.toLowerCase().replace(/[^a-zA-Z0-9]/g, "");
   //create a new stack
@@ -73,7 +74,6 @@ function isPalindrome(s) {
     stackTwo.push(reversed[c]);
   }
   while ( stackOne.top !== null && stackOne.top.value === stackTwo.top.value ) {
-    console.log(stackOne.top.value, stackTwo.top.value, 'HERE');
     stackOne.top = stackOne.top.next;
     stackTwo.top = stackTwo.top.next;
   }
@@ -83,8 +83,8 @@ function isPalindrome(s) {
   return true;
 }
 
-console.log(isPalindrome('starrats'), 'TRUE');
-console.log(isPalindrome('abcdefg'), 'FALSE');
+//console.log(isPalindrome('starrats'), 'TRUE');
+//console.log(isPalindrome('abcdefg'), 'FALSE');
 
 function reverseString(string) {
   if (!string.length) {
@@ -93,8 +93,32 @@ function reverseString(string) {
   return reverseString(string.slice(1)) + string[0];
 }
 
-console.log(reverseString('dog'));
+//console.log(reverseString('dog'));
 
+/////////////////////////////// MATCHING PARENTHESIS ///////////////////////////
+function matchingParens(string) {
+  //create a stack push if "(" // pop if ")"
+  const stack = new StarTrek();
+  for (let c in string) {
+    if ( string[c] === "(" ) {
+      stack.push(c);
+    } else if (string[c] === ")" && stack.top !== null) {
+      stack.pop();
+    } else {
+      return `parenthesis error at ${c}`;
+    }
+  }
+  return true;
+
+  //error handling
+  //  if it starts with a closing parens = error
+  //  string ends with "(" = error
+}
+
+console.log(matchingParens('((((((()))))))'), 'should be TRUE');
+console.log(matchingParens(')(((((()))))))'), 'should be error at 0');
+console.log(matchingParens('((((((()))))))))'), 'should be sucks 14ish');
+console.log(matchingParens('())'), 'should be sucks at 2');
 function main() {
   const stack = new StarTrek();
   stack.push('kirk');
