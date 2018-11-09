@@ -1,4 +1,3 @@
-
 class _Node {
   constructor(value, next) {
     this.value = value;
@@ -12,7 +11,7 @@ class StarTrek {
   }
 
   push(value) {
-    if(this.top === null) {
+    if (this.top === null) {
       this.top = new _Node(value, this.top);
       return this.top;
     }
@@ -54,7 +53,7 @@ function peek(stack) {
 
 ///////////////////// ITS A PALINDROME /////////////////////
 function isPalindrome(s) {
-  s = s.toLowerCase().replace(/[^a-zA-Z0-9]/g, "");
+  s = s.toLowerCase().replace(/[^a-zA-Z0-9]/g, '');
   //create a new stack
   //creat ANOTHER stack
   //iterate through string, and push onto stack
@@ -73,7 +72,7 @@ function isPalindrome(s) {
   for (let c in reversed) {
     stackTwo.push(reversed[c]);
   }
-  while ( stackOne.top !== null && stackOne.top.value === stackTwo.top.value ) {
+  while (stackOne.top !== null && stackOne.top.value === stackTwo.top.value) {
     stackOne.top = stackOne.top.next;
     stackTwo.top = stackTwo.top.next;
   }
@@ -100,9 +99,9 @@ function matchingParens(string) {
   //create a stack push if "(" // pop if ")"
   const stack = new StarTrek();
   for (let c in string) {
-    if ( string[c] === "(" ) {
+    if (string[c] === '(') {
       stack.push(c);
-    } else if (string[c] === ")" && stack.top !== null) {
+    } else if (string[c] === ')' && stack.top !== null) {
       stack.pop();
     } else {
       return `parenthesis error at ${c}`;
@@ -121,14 +120,58 @@ console.log(matchingParens('((((((()))))))))'), 'should be sucks 14ish');
 console.log(matchingParens('())'), 'should be sucks at 2');
 function main() {
   const stack = new StarTrek();
-  stack.push('kirk');
-  stack.push('Spock');
-  stack.push('McCoy');
-  stack.push('Scotty');
-  stack.pop('Scotty');
+  stack.push(8);
+  stack.push(1);
+  stack.push(3);
+  stack.push(5);
 
-  console.log(peek(stack));
+  console.log(sortStack(stack));
+}
+
+let definedStack;
+
+function sortStack(stack) {
+  const tempStack = new StarTrek();
+  while (stack !== null) {
+    let temp = stack.pop();
+    while (tempStack && peek(tempStack) > temp) {
+      stack.push(tempStack.pop());
+    }
+    tempStack.push(temp);
+  }
+  stack.top = tempStack.top;
+
+  //create a second stack
+  //stack1  stack2 0
+  // stack2.push(stack.top.value);
+  // pop off top of stack
+  //let temp = stack1.top.value
+  // if temp > stack2.top.value stack2.push(temp)
+  // if temp < stack2.top.value stack1.push(stack2.pop()) stack2.push(temp);
+
+  // const stack2 = new StarTrek();
+  // while (stack.top.next !== null) {
+  //   stack2.push(stack.top.value);
+  //   stack.pop();
+  //   let temp = stack.top.value;
+  //   if (temp > stack2.top.value) {
+  //     stack2.push(temp);
+  //   } else if (stack2.top !== null && temp < stack2.top.value) {
+  //     while (temp < stack2.top.value) {
+  //       stack.pop();
+  //       stack.push(stack2.pop());
+  //     }
+  //     stack2.push(temp);
+  //   } else {
+  //     stack2.push(temp);
+  //   }
+  // }
+
+  return tempStack;
+  //helper(s1, s2)
 }
 
 main();
 
+//create copy
+//loop through find max
